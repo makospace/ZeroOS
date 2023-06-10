@@ -1,0 +1,13 @@
+[fatal]
+0	boot.asm	"No setup.bin!"
+1	setup.asm	"No kernel.exe!"
+[warn]
+
+[bug]
+0	setup.asm	"Return from Kernel!"
+allan
+test
+123
+fat12
+hehe
+helloword

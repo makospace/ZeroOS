@@ -1,0 +1,10 @@
+bin\Debug\StatisticCode.exe
+bin\Debug\StatisticCode.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\StatisticCode.exe
+obj\Debug\StatisticCode.pdb
+bin\Release\StatisticCode.exe
+bin\Release\StatisticCode.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\StatisticCode.exe
+obj\Release\StatisticCode.pdb

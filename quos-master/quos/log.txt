@@ -1,0 +1,2 @@
+071004:	Try to support write the fat file system, failed!
+071004:	Try to support write the fat file system, succeed!

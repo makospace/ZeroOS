@@ -1,0 +1,394 @@
+//文件名：printf.c
+//功能：
+//	格式化输出函数
+// 编译方法：
+//		cl /nologo /c /Gs /G3 /w /Gx- printf.obj printf.c
+//  如斯
+//2007-6-5
+#include "include/stdc.h"
+
+#define ZEROPAD	1		/* 是否补0 */
+#define SIGN	2		/* unsigned/signed long */
+#define PLUS	4		/* 是否显示正好 */
+#define SPACE	8		/* 是否空出符号位 */
+#define LEFT	16		/* left justified */
+#define SPECIAL	32		/* 0x */
+#define SMALL	64		/* use 'abcdef' instead of 'ABCDEF' */
+#define is_digit(c)	((c) >= '0' && (c) <= '9')
+
+static char far * number(char far * str, int num, int base, int size, int precision, int type)
+{
+	char c,sign,tmp[36];
+	const char far *digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int i;
+//{
+//char buf[20];
+//ltoa(num, (char far *)buf);puts((char far *)buf);
+////putchar(*fmt);
+//puts((char far *)"\n");
+//getch();
+//}
+	if (type&SMALL) digits="0123456789abcdefghijklmnopqrstuvwxyz";
+	if (type&LEFT) type &= ~ZEROPAD;
+	if (base<2 || base>36)
+		return 0;
+
+	c = (type & ZEROPAD) ? '0' : ' ' ;
+
+	if (type&SIGN && num<0)
+	{
+		sign='-';
+		num = -num;
+	}
+	else
+	{
+		sign=(type&PLUS) ? '+' : ((type&SPACE) ? ' ' : 0);
+	}
+
+	if (sign) size--;
+
+	if (type&SPECIAL)
+	{
+		if (base==16) size -= 2;
+		else if (base==8) size--;
+	}
+	i=0;
+	if (num==0)
+	{
+		tmp[i++]='0';
+	}
+	else
+	{
+		int max = 0;
+		while (num!=0)
+		{
+			// 这儿因为我们不能使用divl这个指令，所以在处理无符号数的时候会出错
+			int __res;
+			if(max++>=36)break;
+			__res = ((unsigned long) num) % (unsigned) base;
+			num = ((unsigned long) num) / (unsigned) base;
+
+//{
+//char buf[20];
+//ltoa((unsigned long) num, (char far *)buf);
+//puts((char far *)buf);
+//getch();
+//}
+			tmp[i++]=digits[__res];
+		}
+	}
+	if (i>precision) precision=i;
+	size -= precision;
+//{
+//char buf[20];
+//itoa(size, (char far *)buf);puts((char far *)buf);
+////putchar(*fmt);
+//puts((char far *)"\n");
+//getch();
+//}
+	if (!(type&(ZEROPAD+LEFT)))
+		while(size-->0)
+			*str++ = ' ';
+	if (sign)
+		*str++ = sign;
+	if (type&SPECIAL)
+	{
+		if (base==8)
+		{
+			*str++ = '0';
+		}
+		else if (base==16)
+		{
+			*str++ = '0';
+			*str++ = digits[33];
+		}
+	}
+	if (!(type&LEFT))
+		while(size-->0)
+			*str++ = c;
+	while(i<precision--)
+		*str++ = '0';
+	while(i-->0)
+		*str++ = tmp[i];
+	while(size-->0)
+		*str++ = ' ';
+	return str;
+}
+static char far * numberl(char far * str, long num, int base, int size, int precision, int type)
+{
+	char c,sign,tmp[36];
+	const char far *digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int i;
+//{
+//char buf[20];
+//ltoa(num, (char far *)buf);puts((char far *)buf);
+////putchar(*fmt);
+//puts((char far *)"\n");
+//getch();
+//}
+	if (type&SMALL) digits="0123456789abcdefghijklmnopqrstuvwxyz";
+	if (type&LEFT) type &= ~ZEROPAD;
+	if (base<2 || base>36)
+		return 0;
+
+	c = (type & ZEROPAD) ? '0' : ' ' ;
+
+	if (type&SIGN && num<0)
+	{
+		sign='-';
+		num = -num;
+	}
+	else
+	{
+		sign=(type&PLUS) ? '+' : ((type&SPACE) ? ' ' : 0);
+	}
+
+	if (sign) size--;
+
+	if (type&SPECIAL)
+	{
+		if (base==16) size -= 2;
+		else if (base==8) size--;
+	}
+	i=0;
+	if (num==0)
+	{
+		tmp[i++]='0';
+	}
+	else
+	{
+		int max = 0;
+		while (num!=0)
+		{
+			// 这儿因为我们不能使用divl这个指令，所以在处理无符号数的时候会出错
+			int __res;
+			if(max++>=36)break;
+			__res = ((unsigned long) num) % (unsigned) base;
+			num = ((unsigned long) num) / (unsigned) base;
+
+//{
+//char buf[20];
+//ltoa((unsigned long) num, (char far *)buf);
+//puts((char far *)buf);
+//getch();
+//}
+			tmp[i++]=digits[__res];
+		}
+	}
+	if (i>precision) precision=i;
+	size -= precision;
+//{
+//char buf[20];
+//itoa(size, (char far *)buf);puts((char far *)buf);
+////putchar(*fmt);
+//puts((char far *)"\n");
+//getch();
+//}
+	if (!(type&(ZEROPAD+LEFT)))
+		while(size-->0)
+			*str++ = ' ';
+	if (sign)
+		*str++ = sign;
+	if (type&SPECIAL)
+	{
+		if (base==8)
+		{
+			*str++ = '0';
+		}
+		else if (base==16)
+		{
+			*str++ = '0';
+			*str++ = digits[33];
+		}
+	}
+	if (!(type&LEFT))
+		while(size-->0)
+			*str++ = c;
+	while(i<precision--)
+		*str++ = '0';
+	while(i-->0)
+		*str++ = tmp[i];
+	while(size-->0)
+		*str++ = ' ';
+	return str;
+}
+
+int vsprintf(char far *buf, const char far *fmt, va_list args)
+{
+	// make a guess at the maximum length of the resulting string
+	int nMaxLen = 0;
+	for (const char* lpsz = lpszFormat; *lpsz != '\0'; lpsz = _AfxAnsiNext(lpsz))
+	{
+		// handle '%' character, but watch out for '%%'
+		if (*lpsz != '%' || *(lpsz = _AfxAnsiNext(lpsz)) == '%')
+		{
+			++nMaxLen;
+			if (_AfxIsDBCSLeadByte(*lpsz))
+				++nMaxLen;
+			continue;
+		}
+
+		int nItemLen = 0;
+
+		// handle '%' character with format
+		int nWidth = 0;
+		for (; *lpsz != '\0'; lpsz = _AfxAnsiNext(lpsz))
+		{
+			// check for valid flags
+			if (*lpsz == '#')
+				nMaxLen += 2;   // for '0x'
+			else if (*lpsz == '*')
+				nWidth = va_arg(argList, int);
+			else if (*lpsz == '-' || *lpsz == '+' || *lpsz == '0' ||
+				*lpsz == ' ')
+				;
+			else // hit non-flag character
+				break;
+		}
+		// get width and skip it
+		if (nWidth == 0)
+		{
+			// width indicated by
+			nWidth = atoi(lpsz);
+			for (; *lpsz != '\0' && isdigit(*lpsz); lpsz = _AfxAnsiNext(lpsz))
+				;
+		}
+		ASSERT(nWidth >= 0);
+
+		int nPrecision = 0;
+		if (*lpsz == '.')
+		{
+			// skip past '.' separator (width.precision)
+			lpsz = _AfxAnsiNext(lpsz);
+
+			// get precision and skip it
+			if (*lpsz == '*')
+			{
+				nPrecision = va_arg(argList, int);
+				lpsz = _AfxAnsiNext(lpsz);
+			}
+			else
+			{
+				nPrecision = atoi(lpsz);
+				for (; *lpsz != '\0' && isdigit(*lpsz); lpsz = _AfxAnsiNext(lpsz))
+					;
+			}
+			ASSERT(nPrecision >= 0);
+		}
+
+		// should be on type modifier or specifier
+		int nModifier = 0;
+		switch (*lpsz)
+		{
+		// modifiers that affect size
+		case 'F':
+			nModifier = FORCE_FAR;
+			lpsz = _AfxAnsiNext(lpsz);
+			break;
+		case 'N':
+			nModifier = FORCE_NEAR;
+			lpsz = _AfxAnsiNext(lpsz);
+			break;
+
+		// modifiers that do not affect size
+		case 'h':
+		case 'l':
+		case 'L':
+			lpsz = _AfxAnsiNext(lpsz);
+			break;
+		}
+
+		// now should be on specifier
+		switch (*lpsz | nModifier)
+		{
+		// single characters
+		case 'c':
+		case 'C':
+			nItemLen = 2;
+			va_arg(argList, TCHAR);
+			break;
+
+		// strings
+		case 's':
+		case 'S':
+			nItemLen = lstrlen(va_arg(argList, char*));
+			nItemLen = max(1, nItemLen);
+			break;
+		case 's'|FORCE_NEAR:
+		case 'S'|FORCE_NEAR:
+			nItemLen = lstrlen(va_arg(argList, char NEAR*));
+			nItemLen = max(1, nItemLen);
+			break;
+		case 's'|FORCE_FAR:
+		case 'S'|FORCE_FAR:
+			nItemLen = lstrlen(va_arg(argList, char FAR*));
+			nItemLen = max(1, nItemLen);
+			break;
+		}
+
+		// adjust nItemLen for strings
+		if (nItemLen != 0)
+		{
+			nItemLen = max(nItemLen, nWidth);
+			if (nPrecision != 0)
+				nItemLen = min(nItemLen, nPrecision);
+		}
+		else
+		{
+			switch (*lpsz)
+			{
+			// integers
+			case 'd':
+			case 'i':
+			case 'u':
+			case 'x':
+			case 'X':
+			case 'o':
+				va_arg(argList, int);
+				nItemLen = 32;
+				nItemLen = max(nItemLen, nWidth+nPrecision);
+				break;
+
+			case 'e':
+			case 'f':
+			case 'g':
+			case 'G':
+				va_arg(argList, _AFXDOUBLE);
+				nItemLen = 128;
+				nItemLen = max(nItemLen, nWidth+nPrecision);
+				break;
+
+			case 'p':
+				va_arg(argList, void*);
+				nItemLen = 32;
+				nItemLen = max(nItemLen, nWidth+nPrecision);
+				break;
+
+			// no output
+			case 'n':
+				va_arg(argList, int*);
+				break;
+
+			default:
+				ASSERT(FALSE);  // unknown formatting option
+			}
+		}
+
+		// adjust nMaxLen for output nItemLen
+		nMaxLen += nItemLen;
+	}
+	return str-buf;
+}
+
+int printf(const char far *pStrFormat, ...)
+{
+	int r = 0;
+	static char buf[1024];
+	va_list args;
+
+	va_start(args, pStrFormat);
+	r = vsprintf(buf, pStrFormat, args);
+	va_end(args);
+	puts(buf);
+	return r;
+}

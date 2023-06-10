@@ -1,0 +1,11 @@
+.\: 496行
+	.\StatisticCode: 190行
+		.\StatisticCode\StatisticCode: 190行
+			.\StatisticCode\StatisticCode\Properties: 35行
+				.\StatisticCode\StatisticCode\Properties\AssemblyInfo.cs: 35行
+			.\StatisticCode\StatisticCode\Program.cs: 155行
+	.\build.c: 111行
+	.\dosEXE.C: 61行
+	.\put.c: 64行
+	.\reworkBoot.c: 70行
+总共: 496行

@@ -1,0 +1,19 @@
+10x0006fee5 <bogus+       0>:    0x00000000      0x00000000
+20x0006fef5 <bogus+      16>:    0x6000ff0b      0x00a8003f
+30x0006ff05 <bogus+      32>:    0x6000ff0b      0x00000000
+40x0006ff15 <bogus+      48>:    0x00000000      0x00000000
+5
+60x0006feed <bogus+       0>:    0x007bfef7      0x000b72ed
+70x0006fefd <bogus+      16>:    0x0249ffd3      0x00a60047
+80x0006ff0d <bogus+      32>:    0x00000000      0x00000000
+90x0006ff1d <bogus+      48>:    0x00000000      0x00000000
+0
+a0x0006fee5 <bogus+       0>:    0xffd30000      0xfefd0046
+b0x0006fef5 <bogus+      16>:    0x6000ff0b      0x00a8003f
+c0x0006ff05 <bogus+      32>:    0x6000ff0b      0x00000000
+d0x0006ff15 <bogus+      48>:    0x00000000      0x00000000
+e
+f0x0006feed <bogus+       0>:    0xffd30000      0xfefd0046
+g0x0006fefd <bogus+      16>:    0x0249ffd3      0x00a60047
+h0x0006ff0d <bogus+      32>:    0x00000000      0x00000000
+i0x0006ff1d <bogus+      48>:    0x00000000      0x00000000

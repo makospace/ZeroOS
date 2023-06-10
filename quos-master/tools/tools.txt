@@ -1,0 +1,14 @@
+.\: 674行
+	.\StatisticCode: 368行
+		.\StatisticCode\StatisticCode: 368行
+			.\StatisticCode\StatisticCode\Properties: 35行
+				AssemblyInfo.cs: 35行
+			Program.cs: 120行
+			Statistic.cs: 213行
+	build.c: 111行
+	dosEXE.c: 61行
+	put.c: 64行
+	reworkBoot.c: 70行
+-----------------------------------------------------------------------------------------------
+                                该文件由代码统计工具自动生成
+                  如斯制作 青岛科技大学 计算机科学与技术专业 专科041班 刘胜坤
