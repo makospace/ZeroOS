@@ -1,4 +1,0 @@
-/*
- * libc/time/gettimeofday.c
- */
-
