@@ -1,6 +1,16 @@
+<!--
+ * @Author: makospace 1505548152@qq.com
+ * @Date: 2024-07-25 12:04:46
+ * @LastEditors: makospace 1505548152@qq.com
+ * @LastEditTime: 2024-07-25 12:08:11
+ * @FilePath: \ZZKernel\README.md
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+-->
 # ZeroOS
 搭建一个小型操作系统内核需要一定的编程基础和对计算机系统的理解。以下是一个分步骤的实现方法：
-
+<!-- 一个测试 -->
 1. 准备工具和环境：
    - 安装一个C编译器，如GCC
    - 安装汇编编译器，如NASM
